@@ -47,8 +47,12 @@
         }
     </style>
     <script>
-        // Define process.env globally to prevent crashes in Node-oriented libraries
-        window.process = { env: { API_KEY: "" } };
+        // Set up a global process object immediately to prevent 'process is not defined' errors
+        window.process = { 
+            env: { 
+                API_KEY: "" 
+            } 
+        };
     </script>
     <!-- Polyfill for Import Maps and ESM on static hosts -->
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
@@ -69,7 +73,7 @@
 <body class="antialiased text-slate-900">
     <div id="error-overlay">
         <h1 style="font-weight: 800; font-size: 1.5rem;">Application Error</h1>
-        <p id="error-message" style="margin-top: 1rem; font-size: 0.875rem; color: #64748b;"></p>
+        <p id="error-message" style="margin-top: 1rem; font-size: 0.875rem; color: #64748b; white-space: pre-wrap; word-break: break-all;"></p>
         <button onclick="location.reload()" style="margin-top: 2rem; background: #4f46e5; color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 700;">Reload App</button>
     </div>
     
@@ -77,16 +81,29 @@
 
     <script>
         window.onerror = function(msg, url, line, col, error) {
-            console.error("Global Catch:", msg, "at", url, ":", line);
+            console.error("Global Catch:", msg, error);
             const overlay = document.getElementById('error-overlay');
             const message = document.getElementById('error-message');
             if (overlay && message) {
                 overlay.style.display = 'flex';
-                message.textContent = msg + (url ? " (in " + url.split('/').pop() + ":" + line + ")" : "");
+                // "Script error." is generic for cross-origin issues. crossorigin="anonymous" fixes this.
+                message.textContent = msg + "\n" + (url ? "File: " + url.split('/').pop() : "") + (line ? "\nLine: " + line : "") + (error ? "\nStack: " + error.stack : "");
             }
             return false;
         };
+
+        window.onunhandledrejection = function(event) {
+            console.error("Unhandled Rejection:", event.reason);
+            const overlay = document.getElementById('error-overlay');
+            const message = document.getElementById('error-message');
+            if (overlay && message) {
+                overlay.style.display = 'flex';
+                message.textContent = "Promise Rejection: " + event.reason;
+            }
+        };
     </script>
-    <script type="module-shim" src="./index.tsx"></script>
+    <!-- Use module-shim to allow es-module-shims to process the TSX file. 
+         crossorigin="anonymous" is vital for debugging scripts on different origins or static hosts. -->
+    <script type="module-shim" src="./index.tsx" crossorigin="anonymous"></script>
 </body>
 </html>
