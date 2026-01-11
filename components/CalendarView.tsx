@@ -1,6 +1,5 @@
-
 import React, { useState, useMemo } from 'react';
-import { DayPerformance } from '../types';
+import { DayPerformance } from '../types.ts';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Info, Trash2 } from 'lucide-react';
 
 interface CalendarViewProps {

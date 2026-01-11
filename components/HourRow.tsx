@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { ScheduleItem, RecurrenceType, MergedScheduleItem } from '../types';
+import { ScheduleItem, RecurrenceType, MergedScheduleItem } from '../types.ts';
 import { Check, ChevronDown, ChevronUp, Edit3, Repeat, CalendarDays, CalendarRange, Trash2, Clock, Maximize2, Plus, RefreshCcw } from 'lucide-react';
 
 interface HourRowProps {

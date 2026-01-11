@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { RecurringRule, RecurrenceType } from '../types';
+import { RecurringRule, RecurrenceType } from '../types.ts';
 import { X, Trash2, Repeat, CalendarDays, CalendarRange, Clock } from 'lucide-react';
 
 interface RecurringManagerProps {

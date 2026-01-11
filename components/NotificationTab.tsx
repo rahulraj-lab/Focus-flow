@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { AppNotification } from '../types';
+import { AppNotification } from '../types.ts';
 import { Bell, CheckCircle2, AlertCircle, Info, Trash2, X, BellOff } from 'lucide-react';
 
 interface NotificationTabProps {
