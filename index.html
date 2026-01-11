@@ -23,38 +23,32 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
             -webkit-tap-highlight-color: transparent;
-            /* Prevent bounce scrolling on some mobile browsers */
             overscroll-behavior-y: none;
             padding-bottom: var(--safe-area-inset-bottom);
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+        #error-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 9999;
+            padding: 2rem; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; color: #ef4444;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        
         header {
             padding-top: calc(1rem + var(--safe-area-inset-top));
         }
-
-        /* Android Ripple-like feedback simulation */
         .tap-target {
             transition: transform 0.1s ease, background-color 0.1s ease;
         }
         .tap-target:active {
             transform: scale(0.97);
         }
-
-        /* Ensure fixed elements respect safe areas */
         .fixed-bottom-nav {
             padding-bottom: calc(1.5rem + var(--safe-area-inset-bottom)) !important;
         }
     </style>
+    <!-- Polyfill for Import Maps and ESM on static hosts -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
     <script type="importmap">
 {
   "imports": {
@@ -70,7 +64,26 @@
 </script>
 </head>
 <body class="antialiased text-slate-900">
+    <div id="error-overlay">
+        <h1 style="font-weight: 800; font-size: 1.5rem;">Application Failed to Load</h1>
+        <p id="error-message" style="margin-top: 1rem; font-size: 0.875rem; color: #64748b;"></p>
+        <button onclick="location.reload()" style="margin-top: 2rem; background: #4f46e5; color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 700;">Retry</button>
+    </div>
+    
     <div id="root"></div>
+
+    <script>
+        // Catch loading errors for GitHub Pages debugging
+        window.onerror = function(msg, url, line, col, error) {
+            const overlay = document.getElementById('error-overlay');
+            const message = document.getElementById('error-message');
+            if (overlay && message) {
+                overlay.style.display = 'flex';
+                message.textContent = msg + (url ? ' at ' + url : '');
+            }
+            return false;
+        };
+    </script>
     <script type="module" src="./index.tsx"></script>
     <script>
         if ('serviceWorker' in navigator) {

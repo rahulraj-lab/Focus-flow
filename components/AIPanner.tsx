@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { Sparkles, Loader2, Wand2, X, Plus, Flag, ChevronRight, Check, ListChecks, CalendarRange, Zap, Eye, ArrowLeft, Clock, BarChart2, TrendingUp, Lightbulb } from 'lucide-react';
-import { generateScheduleOptions, PriorityItem, ScheduleOption, OptimizationInsight } from '../services/geminiService';
-import { ScheduleItem, RecurringRule, DayPerformance } from '../types';
+import { generateScheduleOptions, PriorityItem, ScheduleOption, OptimizationInsight } from '../services/geminiService.ts';
+import { ScheduleItem, RecurringRule, DayPerformance } from '../types.ts';
 
 interface AIPannerProps {
   history: Record<string, DayPerformance>;
@@ -185,7 +185,6 @@ const AIPanner: React.FC<AIPannerProps> = ({ history, recurringRules, onPlanGene
               </button>
             </div>
           ) : showInsights ? (
-            /* INSIGHTS VIEW */
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                <div className="bg-indigo-50/50 border border-indigo-100 p-5 rounded-[2rem] flex items-center gap-4">
                   <div className="w-12 h-12 bg-indigo-500 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -269,7 +268,6 @@ const AIPanner: React.FC<AIPannerProps> = ({ history, recurringRules, onPlanGene
                         <button 
                           onClick={(e) => { e.stopPropagation(); setPreviewIndex(idx); }}
                           className="p-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors border border-indigo-100 tap-target"
-                          title="Full Preview"
                         >
                           <Eye size={16} />
                         </button>
@@ -288,9 +286,6 @@ const AIPanner: React.FC<AIPannerProps> = ({ history, recurringRules, onPlanGene
                           <span className="truncate max-w-[50px]">{it.task}</span>
                         </div>
                       ))}
-                      <div className="ml-auto">
-                        <ChevronRight size={14} className="text-slate-300" />
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -325,9 +320,6 @@ const AIPanner: React.FC<AIPannerProps> = ({ history, recurringRules, onPlanGene
                       <h5 className="font-bold text-slate-800 text-sm">{it.task}</h5>
                       {it.notes && <p className="text-[11px] text-slate-500 leading-relaxed">{it.notes}</p>}
                     </div>
-                    <div className="flex-shrink-0 self-center">
-                      <Clock size={14} className="text-slate-200" />
-                    </div>
                   </div>
                 ))}
               </div>
@@ -338,7 +330,7 @@ const AIPanner: React.FC<AIPannerProps> = ({ history, recurringRules, onPlanGene
                   className="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all tap-target"
                 >
                   <ArrowLeft size={18} />
-                  Back to Options
+                  Back
                 </button>
                 <button
                   onClick={() => applySelectedPlan(previewIndex)}

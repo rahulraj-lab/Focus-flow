@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Calendar as CalendarIcon, Trash2, LayoutDashboard, Sparkles, CheckCircle2, Repeat, Clock, ListTodo, CircleDashed, CheckCircle, Bell } from 'lucide-react';
-import { ScheduleItem, RecurringRule, AppNotification, ViewMode, DayPerformance, MergedScheduleItem } from './types';
-import HourRow from './components/HourRow';
-import AIPanner from './components/AIPanner';
-import RecurringManager from './components/RecurringManager';
-import NotificationTab from './components/NotificationTab';
-import CalendarView from './components/CalendarView';
+import { ScheduleItem, RecurringRule, AppNotification, ViewMode, DayPerformance, MergedScheduleItem } from './types.ts';
+import HourRow from './components/HourRow.tsx';
+import AIPanner from './components/AIPanner.tsx';
+import RecurringManager from './components/RecurringManager.tsx';
+import NotificationTab from './components/NotificationTab.tsx';
+import CalendarView from './components/CalendarView.tsx';
 
 const STORAGE_KEYS = {
   DAY_PREFIX: 'aura_day_',
