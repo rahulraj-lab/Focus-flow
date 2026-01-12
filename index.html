@@ -55,7 +55,7 @@
         };
     </script>
     <!-- Polyfill for Import Maps and ESM on static hosts -->
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+    <script async src="https://ga.jspm.io/npm:es-module@1.10.0/dist/es-module.js"></script>
     <script type="importmap">
 {
   "imports": {
@@ -102,8 +102,8 @@
             }
         };
     </script>
-    <!-- Use module-shim to allow es-module-shims to process the TSX file. 
+    <!-- Use module to allow es-module to process the TSX file. 
          crossorigin="anonymous" is vital for debugging scripts on different origins or static hosts. -->
-    <script type="module-shim" src="./index.tsx" crossorigin="anonymous"></script>
+    <script type="module" src="./index.tsx" crossorigin="anonymous"></script>
 </body>
 </html>
